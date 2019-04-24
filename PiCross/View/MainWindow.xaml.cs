@@ -42,6 +42,7 @@ namespace View
 
             picrossControl.Grid = playablePuzzle.Grid;
             picrossControl.RowConstraints = playablePuzzle.RowConstraints;
+            picrossControl.ColumnConstraints = playablePuzzle.ColumnConstraints;
         }
     }
 
@@ -72,6 +73,22 @@ namespace View
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+
+        public class mark : ICommand
+        {
+            public event EventHandler CanExecuteChanged;
+
+            public bool CanExecute(object parameter)
+            {
+                return true;
+            }
+
+            public void Execute(object parameter)
+            {
+                var rectangle = parameter as IPlayablePuzzleSquare;
+                rectangle.Contents.Value = Square.FILLED;
+            }
         }
     }
 }
