@@ -23,10 +23,10 @@ namespace ViewModel
             this.DemoPlayablePluzzle = Facade.CreatePlayablePuzzle(DemoPuzzle);
             this.MarkCommand = new Mark();
         }
-        public PiCrossFacade Facade;
-        public Puzzle DemoPuzzle;
-        public IPlayablePuzzle DemoPlayablePluzzle;
-        public Mark MarkCommand;
+        public PiCrossFacade Facade { get; set; }
+        public Puzzle DemoPuzzle { get; set; }
+        public IPlayablePuzzle DemoPlayablePluzzle { get; set; }
+        public Mark MarkCommand { get; set; }
     }
     public class Mark : ICommand
     {

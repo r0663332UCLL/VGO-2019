@@ -32,7 +32,6 @@ namespace View
 
             this.viewmodel = new MainWindowViewModel();
             this.DataContext = viewmodel;
-
             picrossControl.Grid = viewmodel.DemoPlayablePluzzle.Grid;
             picrossControl.RowConstraints = viewmodel.DemoPlayablePluzzle.RowConstraints;
             picrossControl.ColumnConstraints = viewmodel.DemoPlayablePluzzle.ColumnConstraints;
