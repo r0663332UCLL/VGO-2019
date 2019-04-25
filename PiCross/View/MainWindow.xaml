@@ -14,15 +14,19 @@
         <controls:PiCrossControl x:Name="picrossControl">
             <controls:PiCrossControl.SquareTemplate>
                 <DataTemplate>
-                    <Rectangle Width="32" Height="32" Stroke="Black">
-                        <Rectangle.Fill>
-                            <Binding Path="Contents.Value">
-                                <Binding.Converter>
-                                    <local:SquareConverter Empty="White" Filled="Black" Unknown="Gray" />
-                                </Binding.Converter>
-                            </Binding>
-                        </Rectangle.Fill>
-                    </Rectangle>
+                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                        <Button.Content>
+                            <Rectangle Width="32" Height="32" Stroke="Black">
+                                <Rectangle.Fill>
+                                    <Binding Path="Contents.Value">
+                                        <Binding.Converter>
+                                            <local:SquareConverter Empty="White" Filled="Black" Unknown="Gray" />
+                                        </Binding.Converter>
+                                    </Binding>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button.Content>
+                    </Button>
                 </DataTemplate>
             </controls:PiCrossControl.SquareTemplate>
             <controls:PiCrossControl.RowConstraintsTemplate>

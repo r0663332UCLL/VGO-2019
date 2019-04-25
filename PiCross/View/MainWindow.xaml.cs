@@ -28,6 +28,7 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
             var puzzle = Puzzle.FromRowStrings(
                             "xxxxx",
                             "x...x",
@@ -37,17 +38,18 @@ namespace View
            );
             var facade = new PiCrossFacade();
             var playablePuzzle = facade.CreatePlayablePuzzle(puzzle);
-            playablePuzzle.Grid[new Vector2D(0, 0)].Contents.Value = Square.FILLED;
-            playablePuzzle.Grid[new Vector2D(1, 0)].Contents.Value = Square.EMPTY;
 
             picrossControl.Grid = playablePuzzle.Grid;
             picrossControl.RowConstraints = playablePuzzle.RowConstraints;
             picrossControl.ColumnConstraints = playablePuzzle.ColumnConstraints;
+            MarkCommand = new Mark();
         }
-    }
 
-       public class SquareConverter : IValueConverter
-       {
+        public ICommand MarkCommand { get; private set; }
+ 
+    }
+    public class SquareConverter : IValueConverter
+    {
         public object Filled { get; set; }
 
         public object Empty { get; set; }
@@ -56,7 +58,7 @@ namespace View
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-        var square = (Square)value;
+            var square = (Square)value;
             if (square == Square.EMPTY)
             {
                 return Empty;
@@ -74,20 +76,28 @@ namespace View
         {
             throw new NotImplementedException();
         }
+    }
+    public class Mark : ICommand
+    {
+        public event EventHandler CanExecuteChanged;
 
-        public class mark : ICommand
+        public bool CanExecute(object parameter)
         {
-            public event EventHandler CanExecuteChanged;
+            return true;
+        }
 
-            public bool CanExecute(object parameter)
+        public void Execute(object parameter)
+        {
+            var rectangle = parameter as IPlayablePuzzleSquare;
+            if (rectangle.Contents.Value == Square.UNKNOWN)
             {
-                return true;
-            }
-
-            public void Execute(object parameter)
-            {
-                var rectangle = parameter as IPlayablePuzzleSquare;
                 rectangle.Contents.Value = Square.FILLED;
+            } else if (rectangle.Contents.Value == Square.FILLED)
+            {
+                rectangle.Contents.Value = Square.EMPTY;
+            } else if (rectangle.Contents.Value == Square.EMPTY)
+            {
+                rectangle.Contents.Value = Square.UNKNOWN;
             }
         }
     }
