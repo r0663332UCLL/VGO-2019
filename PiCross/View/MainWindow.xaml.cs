@@ -1,4 +1,5 @@
 ﻿using DataStructures;
+using ViewModel;
 using PiCross;
 using System;
 using System.Collections.Generic;
@@ -28,25 +29,15 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
-            var puzzle = Puzzle.FromRowStrings(
-                            "xxxxx",
-                            "x...x",
-                            "x...x",
-                            "x...x",
-                            "xxxxx"
-           );
-            var facade = new PiCrossFacade();
-            var playablePuzzle = facade.CreatePlayablePuzzle(puzzle);
 
-            picrossControl.Grid = playablePuzzle.Grid;
-            picrossControl.RowConstraints = playablePuzzle.RowConstraints;
-            picrossControl.ColumnConstraints = playablePuzzle.ColumnConstraints;
-            MarkCommand = new Mark();
+            this.viewmodel = new MainWindowViewModel();
+            this.DataContext = viewmodel;
+
+            picrossControl.Grid = viewmodel.DemoPlayablePluzzle.Grid;
+            picrossControl.RowConstraints = viewmodel.DemoPlayablePluzzle.RowConstraints;
+            picrossControl.ColumnConstraints = viewmodel.DemoPlayablePluzzle.ColumnConstraints;
         }
-
-        public ICommand MarkCommand { get; private set; }
- 
+        private MainWindowViewModel viewmodel;
     }
     public class SquareConverter : IValueConverter
     {
@@ -75,30 +66,6 @@ namespace View
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
-        }
-    }
-    public class Mark : ICommand
-    {
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object parameter)
-        {
-            var rectangle = parameter as IPlayablePuzzleSquare;
-            if (rectangle.Contents.Value == Square.UNKNOWN)
-            {
-                rectangle.Contents.Value = Square.FILLED;
-            } else if (rectangle.Contents.Value == Square.FILLED)
-            {
-                rectangle.Contents.Value = Square.EMPTY;
-            } else if (rectangle.Contents.Value == Square.EMPTY)
-            {
-                rectangle.Contents.Value = Square.UNKNOWN;
-            }
         }
     }
 }

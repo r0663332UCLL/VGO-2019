@@ -14,7 +14,7 @@
         <controls:PiCrossControl x:Name="picrossControl">
             <controls:PiCrossControl.SquareTemplate>
                 <DataTemplate>
-                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                    <Button CommandParameter="{Binding}" Command="{Binding MarkCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                         <Button.Content>
                             <Rectangle Width="32" Height="32" Stroke="Black">
                                 <Rectangle.Fill>
@@ -45,7 +45,6 @@
                     </ItemsControl>
                 </DataTemplate>
             </controls:PiCrossControl.RowConstraintsTemplate>
-
             <controls:PiCrossControl.ColumnConstraintsTemplate>
                 <DataTemplate>
                     <ItemsControl ItemsSource="{Binding Path=Values}">
