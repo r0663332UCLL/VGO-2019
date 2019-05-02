@@ -11,10 +11,10 @@
         <local:SquareConverter x:Key="squareConverter" />
     </Window.Resources>
     <Grid>
-        <controls:PiCrossControl x:Name="picrossControl">
+        <controls:PiCrossControl x:Name="picrossControl" Grid="{Binding Grid}">
             <controls:PiCrossControl.SquareTemplate>
                 <DataTemplate>
-                    <Button CommandParameter="{Binding}" Command="{Binding DataContext.MarkCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                    <Button Command="{Binding MarkCommand}">
                         <Button.Content>
                             <Rectangle Width="32" Height="32" Stroke="Black">
                                 <Rectangle.Fill>

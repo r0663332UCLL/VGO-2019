@@ -1,4 +1,5 @@
-﻿using PiCross;
+﻿using DataStructures;
+using PiCross;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,30 @@ namespace ViewModel
 {
     public class MainWindowViewModel
     {
+        private IPlayablePuzzle DemoPlayablePluzzle;
+
         public MainWindowViewModel()
         {
-            this.DemoPuzzle = Puzzle.FromRowStrings(
+           var DemoPuzzle = Puzzle.FromRowStrings(
+                            "x.xxx",
+                            "x.x..",
                             "xxxxx",
-                            "x...x",
-                            "x...x",
-                            "x...x",
-                            "xxxxx"
+                            "..x.x",
+                            "xxx.x"
            );
-            this.Facade= new PiCrossFacade();
+            var Facade = new PiCrossFacade();
             this.DemoPlayablePluzzle = Facade.CreatePlayablePuzzle(DemoPuzzle);
             this.MarkCommand = new Mark();
         }
-        public PiCrossFacade Facade { get; set; }
-        public Puzzle DemoPuzzle { get; set; }
-        public IPlayablePuzzle DemoPlayablePluzzle { get; set; }
-        public Mark MarkCommand { get; set; }
+
+        public ICommand MarkCommand { get; }
+        public IGrid<object> Grid
+        {
+            get
+            {
+                return DemoPlayablePluzzle.Grid;
+            }
+        }
     }
     public class Mark : ICommand
     {
