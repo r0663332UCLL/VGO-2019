@@ -9,12 +9,13 @@
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <local:SquareConverter x:Key="squareConverter" />
+        <local:BooleanConverter x:Key="booleanConverter"/>
     </Window.Resources>
     <Grid>
-        <controls:PiCrossControl x:Name="picrossControl" Grid="{Binding Grid}">
+        <controls:PiCrossControl x:Name="picrossControl" Grid="{Binding Grid}" ColumnConstraints="{Binding ColumnConstraints}" RowConstraints="{Binding RowConstraints}">
             <controls:PiCrossControl.SquareTemplate>
                 <DataTemplate>
-                    <Button Command="{Binding MarkCommand}">
+                    <Button Command="{Binding Mark}">
                         <Button.Content>
                             <Rectangle Width="32" Height="32" Stroke="Black">
                                 <Rectangle.Fill>
@@ -34,7 +35,7 @@
                     <ItemsControl ItemsSource="{Binding Path=Values}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
+                                <StackPanel Orientation="Horizontal" Background="{Binding IsSatisfied, Converter={StaticResource booleanConverter}}" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>

@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConstraintViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PuzzleConstraintsValueViewModel.cs" />
+    <Compile Include="PuzzleConstraintsViewModel.cs" />
+    <Compile Include="PuzzleSquareViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cells\Cells.csproj">

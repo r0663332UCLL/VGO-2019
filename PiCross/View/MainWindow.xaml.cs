@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Grid = DataStructures.Grid;
 using Size = DataStructures.Size;
+using Cells;
 
 namespace View
 {
@@ -29,9 +30,7 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
-
         }
-        private MainWindowViewModel viewmodel;
     }
     public class SquareConverter : IValueConverter
     {
@@ -57,6 +56,25 @@ namespace View
                 return Unknown;
             }
         }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class BooleanConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var Value = (Cell<bool>)value;
+            if (Value.Value)
+            {
+                return new SolidColorBrush(Colors.Green);
+            } else
+            {
+                return new SolidColorBrush(Colors.Red);
+            }
+        }
+
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
