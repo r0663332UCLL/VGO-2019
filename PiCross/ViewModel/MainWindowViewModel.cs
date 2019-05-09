@@ -1,4 +1,5 @@
-﻿using DataStructures;
+﻿using Cells;
+using DataStructures;
 using PiCross;
 using System;
 using System.Collections.Generic;
@@ -32,5 +33,12 @@ namespace ViewModel
         public IGrid<object> Grid{ get; }
         public ISequence<object> ColumnConstraints { get; }
         public ISequence<object> RowConstraints { get; }
+        public Cell<bool> IsSolved
+        {
+            get
+            {
+                return DemoPlayablePluzzle.IsSolved;
+            }
+        }
     }
 }

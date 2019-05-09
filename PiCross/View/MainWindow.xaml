@@ -9,10 +9,12 @@
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <local:SquareConverter x:Key="squareConverter" />
-        <local:BooleanConverter x:Key="booleanConverter"/>
+        <local:ConstraintBooleanConverter x:Key="ConstraintBooleanConverter"/>
+        <local:ConstraintValueBooleanConverter x:Key="ConstraintValueBooleanConverter"/>
+        <local:HiddenBooleanConverter x:Key="HiddenBooleanConverter"/>
     </Window.Resources>
     <Grid>
-        <controls:PiCrossControl x:Name="picrossControl" Grid="{Binding Grid}" ColumnConstraints="{Binding ColumnConstraints}" RowConstraints="{Binding RowConstraints}">
+        <controls:PiCrossControl x:Name="picrossControl" Grid="{Binding Grid}" VerticalAlignment="Center" HorizontalAlignment="Center" ColumnConstraints="{Binding ColumnConstraints}" RowConstraints="{Binding RowConstraints}">
             <controls:PiCrossControl.SquareTemplate>
                 <DataTemplate>
                     <Button Command="{Binding Mark}">
@@ -35,12 +37,12 @@
                     <ItemsControl ItemsSource="{Binding Path=Values}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Background="{Binding IsSatisfied, Converter={StaticResource booleanConverter}}" />
+                                <StackPanel Orientation="Horizontal" Background="{Binding IsSatisfied.Value, Converter={StaticResource ConstraintBooleanConverter}}" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Width="32" Height="32" Text="{Binding Path=Value}"/>
+                                <TextBlock Width="32" Height="32" TextAlignment="Center" Text="{Binding Path=Value}" Foreground="{Binding IsSatisfied.Value, Converter={StaticResource ConstraintValueBooleanConverter}}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -51,17 +53,21 @@
                     <ItemsControl ItemsSource="{Binding Path=Values}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical"/>
+                                <StackPanel Orientation="Vertical" Background="{Binding IsSatisfied.Value, Converter={StaticResource ConstraintBooleanConverter}}"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Width="32" Height="32" Text="{Binding Path=Value}"/>
+                                <TextBlock Width="32" Height="32" TextAlignment="Center" Text="{Binding Path=Value}" Foreground="{Binding IsSatisfied.Value, Converter={StaticResource ConstraintValueBooleanConverter}}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </DataTemplate>
             </controls:PiCrossControl.ColumnConstraintsTemplate>
         </controls:PiCrossControl>
+        <TextBlock Background="#82BE4E" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" Padding="10px" Visibility="{Binding IsSolved.Value, Converter={StaticResource HiddenBooleanConverter}}">
+            <TextBlock.Text>Puzzle solved!</TextBlock.Text>
+        </TextBlock>
+        <TextBlock Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding IsSolved.Value, Converter={StaticResource HiddenBooleanConverter}}"></TextBlock>
     </Grid>
 </Window>
