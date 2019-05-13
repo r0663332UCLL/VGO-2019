@@ -1,4 +1,5 @@
 ﻿using PiCross;
+using System;
 using System.ComponentModel;
 
 namespace ViewModel
@@ -24,6 +25,8 @@ namespace ViewModel
             }
         }
 
+        public Action ClosingAction { get; set; }
+
         public void startGame()
         {
             this.ActiveWindow = new PlayWindowViewModel(this);
@@ -37,6 +40,16 @@ namespace ViewModel
         public void startGame(IPlayablePuzzle puzzle)
         {
             this.ActiveWindow = new PlayWindowViewModel(puzzle);
+        }
+
+        public void Retry()
+        {
+            this.ActiveWindow = new StartWindowViewModel(this);
+        }
+
+        public void Exit()
+        {
+            this.ClosingAction?.Invoke();
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }

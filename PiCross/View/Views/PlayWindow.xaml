@@ -65,9 +65,13 @@
                 </DataTemplate>
             </controls:PiCrossControl.ColumnConstraintsTemplate>
         </controls:PiCrossControl>
-        <TextBlock Background="#82BE4E" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" Padding="10px" Visibility="{Binding IsSolved.Value, Converter={StaticResource HiddenBooleanConverter}}">
-            <TextBlock.Text>Puzzle solved!</TextBlock.Text>
-        </TextBlock>
         <TextBlock Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding IsSolved.Value, Converter={StaticResource HiddenBooleanConverter}}"></TextBlock>
+        <StackPanel VerticalAlignment="Center" Visibility="{Binding IsSolved.Value, Converter={StaticResource HiddenBooleanConverter}}">
+            <TextBlock Background="#82BE4E" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="30" Padding="10px">
+                <TextBlock.Text>Puzzle solved!</TextBlock.Text>
+            </TextBlock>
+            <Button Command="{Binding Retry}">Play again</Button>
+            <Button Command="{Binding Exit}">Quit</Button>
+        </StackPanel>
     </Grid>
 </UserControl>

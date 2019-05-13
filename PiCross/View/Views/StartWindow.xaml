@@ -9,5 +9,6 @@
         <TextBlock HorizontalAlignment="Center" FontSize="40">PiCross Start Screen</TextBlock>
         <Button Command="{Binding Start}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Padding="5px">Start</Button>
         <Button Command="{Binding Select}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Padding="5px">Select Level</Button>
+        <Button Command="{Binding Exit}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Padding="5px">Quit</Button>
     </StackPanel>
 </UserControl>

@@ -19,9 +19,16 @@ namespace View
             base.OnStartup(e);
 
             var win = new MainWindow();
-            win.DataContext = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel();
+            win.DataContext = vm;
+            vm.ClosingAction += MainViewModel_ApplicationExit;
             win.Show();
 
+        }
+
+        private void MainViewModel_ApplicationExit()
+        {
+            Application.Current.Shutdown();
         }
     }
 }

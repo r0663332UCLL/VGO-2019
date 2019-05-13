@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static ViewModel.PlayWindowViewModel;
 
 namespace ViewModel
 {
@@ -15,10 +16,12 @@ namespace ViewModel
             this.VM = Mainvm;
             this.Start = new StartCommand(VM);
             this.Select = new SelectCommand(VM);
+            this.Exit = new ExitCommand(VM);
         }
 
         public ICommand Select { get; }
         public ICommand Start { get; }
+        public ICommand Exit { get; }
 
         private class StartCommand : ICommand
         {
