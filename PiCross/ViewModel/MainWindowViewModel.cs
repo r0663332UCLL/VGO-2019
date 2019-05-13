@@ -1,44 +1,43 @@
-﻿using Cells;
-using DataStructures;
-using PiCross;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using PiCross;
+using System.ComponentModel;
 
 namespace ViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private IPlayablePuzzle DemoPlayablePluzzle;
-
+        private object activeWindow;
         public MainWindowViewModel()
         {
-           var DemoPuzzle = Puzzle.FromRowStrings(
-                            "x.xxx",
-                            "x.x..",
-                            "xxxxx",
-                            "..x.x",
-                            "xxx.x"
-           );
-            var Facade = new PiCrossFacade();
-            this.DemoPlayablePluzzle = Facade.CreatePlayablePuzzle(DemoPuzzle);
-            this.Grid = DemoPlayablePluzzle.Grid.Map(square => new PuzzleSquareViewModel(square)).Copy();
-            this.ColumnConstraints = DemoPlayablePluzzle.ColumnConstraints.Map(constraint => new PuzzleConstraintsViewModel(constraint)).Copy();
-            this.RowConstraints = DemoPlayablePluzzle.RowConstraints.Map(constraint => new PuzzleConstraintsViewModel(constraint)).Copy();
+            this.ActiveWindow = new StartWindowViewModel(this);
         }
 
-        public IGrid<object> Grid{ get; }
-        public ISequence<object> ColumnConstraints { get; }
-        public ISequence<object> RowConstraints { get; }
-        public Cell<bool> IsSolved
+        public object ActiveWindow
         {
             get
             {
-                return DemoPlayablePluzzle.IsSolved;
+                return activeWindow;
+            }
+            set
+            {
+                this.activeWindow = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveWindow)));
             }
         }
+
+        public void startGame()
+        {
+            this.ActiveWindow = new PlayWindowViewModel(this);
+        }
+
+        public void levelSelector()
+        {
+            this.ActiveWindow = new LevelSelectorWindowViewModel(this);
+        }
+
+        public void startGame(IPlayablePuzzle puzzle)
+        {
+            this.ActiveWindow = new PlayWindowViewModel(puzzle);
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

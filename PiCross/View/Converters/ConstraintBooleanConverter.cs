@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace View
+namespace View.Converters
 {
     public class ConstraintBooleanConverter : IValueConverter
     {

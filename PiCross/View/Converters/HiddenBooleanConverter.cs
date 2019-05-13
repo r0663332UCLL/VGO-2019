@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace View
+namespace View.Converters
 {
     public class HiddenBooleanConverter : IValueConverter
     {

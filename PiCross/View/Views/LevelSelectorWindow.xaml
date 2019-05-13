@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="View.Views.LevelSelectorWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:View.Views"
+             mc:Ignorable="d">
+    <ItemsControl ItemsSource="{Binding Puzzles}">
+
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Button Command="{Binding SelectPuzzle}" Content="{Binding Title}"/>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        
+    </ItemsControl>
+</UserControl>

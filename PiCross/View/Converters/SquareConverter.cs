@@ -3,7 +3,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace View
+namespace View.Converters
 {
     public class SquareConverter : IValueConverter
     {
